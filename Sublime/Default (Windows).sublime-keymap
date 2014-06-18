@@ -1,0 +1,6 @@
+[
+	{ "keys": ["alt+super+up"], "command": "select_lines", "args": {"forward": false} },
+	{ "keys": ["alt+super+down"], "command": "select_lines", "args": {"forward": true} },
+	{ "keys": ["alt+x"], "command": "move_to", "args": {"to": "eol", "extend": false} },
+	{ "keys": ["alt+z"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+]

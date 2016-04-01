@@ -4,19 +4,36 @@
 # trap read debug
 
 TARGET_BRANCH=$1
+FORSE=false
 
-PIPE="/opt/origami/connector-pipeline-python"
-PLAT="/opt/origami/platform-api-python"
-CONM="/opt/origami/connector-common-python"
-COMMON="/opt/origami/common-python"
-API="/home/user/PycharmProjects/connector-api-python/"
+API='/home/user/PycharmProjects/connector-api-python/'
+ING='/home/user/PycharmProjects/pipeline-ingest'
+PIPE='/home/user/PycharmProjects/connector-pipeline-python'
+PLAT='/home/user/PycharmProjects/platform-api-python'
+CONM='/home/user/PycharmProjects/connector-common-python'
+
 
 REPOS=($PIPE $PLAT $CONM $COMMON $API)
 
 for repo in ${REPOS[@]}; do
-  cd $repo
-  git stash
-  git checkout $TARGET_BRANCH
-  git fetch
-  git reset --hard origin/"$TARGET_BRANCH"
+	cd $repo
+	git stash
+	git checkout $TARGET_BRANCH
+	while getopts ":f" opt; do
+		case $opt in
+			f)
+				FORSE=true
+				git checkout $TARGET_BRANCH
+				;;
+			\?)
+				echo 'Bad option'
+				;; 
+		esac
+	done
+	if [ ! $FORSE ]
+		then
+
+			git fetch
+			git reset --hard origin/"$TARGET_BRANCH"
+	fi
 done
